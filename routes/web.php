@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('/admin/users', 'App\Http\Controllers\Admin\UsersController', ['except' => ['show', 'create', 'store']]);
+
+
+Route::namespace('App\Http\Controllers\Admin')->prefix('admin')->name('admin.')->group(function() {
+    Route::resource('/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
+});
