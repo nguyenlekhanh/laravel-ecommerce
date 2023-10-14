@@ -8,12 +8,16 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return 'User index page';
+        $users = User::all();
+        return view('admin.users.index')->with('users', $users);
     }
 
 
